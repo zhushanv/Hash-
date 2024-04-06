@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+// Function to check if an array is a subset of another array.
+char* isSubset(int a1[], int a2[], int n, int m) {
+    // Create a frequency array to store the occurrences of elements in a1
+    int freq[100001] = {0}; // Assuming maximum element value is 100000
+
+    // Count occurrences of elements in a1
+    for (int i = 0; i < n; i++) {
+        freq[a1[i]]++;
+    }
+
+    // Check if all elements of a2 are present in a1 with sufficient frequency
+    for (int i = 0; i < m; i++) {
+        if (freq[a2[i]] <= 0) {
+            // If any element of a2 is not found in a1 or its frequency is exhausted, return "No"
+            return "No";
+        } else {
+            // Reduce the frequency of the element in a1
+            freq[a2[i]]--;
+        }
+    }
+
+    // If all elements of a2 are found in a1 with enough frequency, return "Yes"
+    return "Yes";
+}
+
+int main() {
+    int a1[] = {1, 2, 2, 3, 4, 5, 5};
+    int a2[] = {2, 3, 5};
+    int n = sizeof(a1) / sizeof(a1[0]);
+    int m = sizeof(a2) / sizeof(a2[0]);
+
+    char* result = isSubset(a1, a2, n, m);
+    printf("%s\n", result);
+
+    return 0;
+}
